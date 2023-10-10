@@ -1,10 +1,11 @@
 #DRDChain
 
-This is the code of our paper untitled "DRDChain : A Blockchain-based Distributed Resource
-Directory for the Internet of Things".
-Below are the steps to follow for deploying the framework:
+This is the code of our paper untitled **DRDChain : A Blockchain-based Distributed Resource
+Directory for the Internet of Things**.
 
+Below are the steps for reproducing the framework environment.
 (We recommend using Linux Ubuntu OS)
+
 1. Install [Docker](https://docs.docker.com/get-docker/)
 2. Deploy [Hyperledger Iroha](https://iroha.readthedocs.io/en/develop/getting_started/index.html)
 3. Run Postgres and HL Iroha containers
