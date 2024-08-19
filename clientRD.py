@@ -12,7 +12,8 @@ def main():
     # rd_ = random.randint(0, rd_number-1)
     # port = 5550 + rd_
     # port = 5551
-    port = int(sys.argv[1])
+    # port = int(sys.argv[1])
+    port = 5690
     client = HelperClient(server=(host, port))
 
     # Test discover
