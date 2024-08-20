@@ -8,13 +8,6 @@ def main():
     host = "127.0.0.1"
     # ports = [5683, 5690]
     # port = random.choice(ports)
-    # rd_number = 5
-    # rd_ = random.randint(0, rd_number-1)
-    # port = 5550 + rd_
-    # port = 5551
-    # port = int(sys.argv[1])
-    port = 5690
-    client = HelperClient(server=(host, port))
 
     # Test discover
     # path = "/.well-known/core"
@@ -22,19 +15,38 @@ def main():
     # print(response.pretty_print())
 
     # Create a registration resource
-    for x in range(5):
-        ifs = ['sensor', 'actuator', 'trigger', 'device']
-        if_name = random.choice(ifs)
-        path = "rd?ep=node1&con=coap://local-proxy-old.example.com:"+str(port)+"&et=oic.d.sensor&account=admin@test"
-        ct = {'content_type': defines.Content_types["application/link-format"]}
-        payload = '</sensors/temp>;ct=41;rt="temperature-c";if="'+if_name+'";anchor="coap://spurious.example.com:'+str(port)+'",' \
-                  '</sensors/light>;ct=41;rt="light-lux";if="'+if_name+'"'
-        response = client.post(path, payload, None, None, **ct)
-        if(response):
-            location_path = response.location_path
-            print(response.pretty_print())
-        else:
-            print('no response')
+    # for x in range(10):
+    # rd_number = 5
+    # rd_ = random.randint(0, rd_number - 1)
+    # port = 5551 + rd_
+    port = int(sys.argv[1])
+    client = HelperClient(server=(host, port))
+    if_name = 'sensor'
+    resource_number = 5
+    path = "rd?ep=node1&con=coap://local-proxy-old.example.com:" + str(port) + "&et=oic.d.sensor&account=admin@test&resnbr="+str(resource_number)
+    ct = {'content_type': defines.Content_types["application/link-format"]}
+    payload = '</sensors/temp>;ct=41;rt="temperature-c";if="' + if_name + '";anchor="coap://spurious.example.com:' + str(
+        port) + '",' \
+                '</sensors/light>;ct=41;rt="light-lux";if="' + if_name + '"'
+    response = client.post(path, payload, None, None, **ct)
+    if (response):
+        location_path = response.location_path
+        print(response.pretty_print())
+    else:
+        print('no response')
+    # for x in range(5):
+    #     ifs = ['sensor', 'actuator', 'trigger', 'device']
+    #     if_name = random.choice(ifs)
+    #     path = "rd?ep=node1&con=coap://local-proxy-old.example.com:"+str(port)+"&et=oic.d.sensor&account=admin@test"
+    #     ct = {'content_type': defines.Content_types["application/link-format"]}
+    #     payload = '</sensors/temp>;ct=41;rt="temperature-c";if="'+if_name+'";anchor="coap://spurious.example.com:'+str(port)+'",' \
+    #               '</sensors/light>;ct=41;rt="light-lux";if="'+if_name+'"'
+    #     response = client.post(path, payload, None, None, **ct)
+    #     if(response):
+    #         location_path = response.location_path
+    #         print(response.pretty_print())
+    #     else:
+    #         print('no response')
 
     # Resource lookup
     # for x in range(10):

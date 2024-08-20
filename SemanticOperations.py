@@ -4,8 +4,9 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 
 
 class SemanticOperations:
-    def __init__(self, rdf_database = 'drd'):
+    def __init__(self, rdf_database = 'drd', server_port = '3030'):
         self.rdf_database = rdf_database
+        self.server_port = server_port
 
     def insertData(self, data):
         # Create a graph
@@ -24,7 +25,7 @@ class SemanticOperations:
         rdf_data = g.serialize(format='turtle')
 
         # Correct URL for data upload
-        url = "http://localhost:3030/"+self.rdf_database+"/data"
+        url = "http://localhost:"+self.server_port+"/"+self.rdf_database+"/data"
 
         # Headers for Turtle format
         headers = {
@@ -42,7 +43,7 @@ class SemanticOperations:
 
     def queryData(self):
         # Define the SPARQL endpoint for querying
-        sparql = SPARQLWrapper("http://localhost:3030/"+self.rdf_database+"/query")
+        sparql = SPARQLWrapper("http://localhost:"+self.server_port+"/"+self.rdf_database+"/query")
 
         # Define a SPARQL query
         sparql.setQuery("""
