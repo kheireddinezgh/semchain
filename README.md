@@ -28,7 +28,7 @@ venv/lib/python3.8/site-packages/coapthon/defines.py
 
 8. Clone the repository.
 
-`Discovery.sol` and `Registration.sol` are the Smart Contracts used in the framework. [Deploy them in the Blockchain](https://iroha.readthedocs.io/en/develop/develop/api/commands.html#call-engine) using their Bytecodes (generated from [Remix IDE](https://remix.ethereum.org/)) in order to execute their functions.
+`Registration.sol`, `Discovery.sol` and `Matchmaking.sol` are the Smart Contracts used in the framework. [Deploy them in the Blockchain](https://iroha.readthedocs.io/en/develop/develop/api/commands.html#call-engine) using their Bytecodes (generated from [Remix IDE](https://remix.ethereum.org/)) in order to execute their functions.
 
 You can now run multiple Resource Directories in the same machine with different ports using the configurable file `run-multiple-RD.py`.
 You can use different machines with different IPs and ports by configuring `rd.py` file. (The RDs must be [added as peers](https://iroha.readthedocs.io/en/develop/develop/api/commands.html#add-peer) in the Blockchain)
