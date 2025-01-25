@@ -2,7 +2,7 @@ import subprocess
 
 rds = ''
 rd_number = 6
-port = 5550
+port = 5551
 database = "RD"+str(port)
 for x in range(rd_number-1):
     rds += " & /home/iot/PycharmProjects/drdchain/venv/bin/python rd.py "+str(port)+" "+database

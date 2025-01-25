@@ -1,10 +1,10 @@
-// SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
 import './Registration.sol';
+import './Matchmaking.sol';
 contract Discovery {
     address public owner;
     string[] resource_list = new string[](10);
-    Registration registration = new Registration();
+    Matchmaking matchmaking = new Matchmaking();
 
     constructor() {
         owner = msg.sender;
@@ -14,11 +14,7 @@ contract Discovery {
         return keccak256(abi.encodePacked(str1)) == keccak256(abi.encodePacked(str2));
     }
 
-    function matchmaking(string memory core_link_format_src, string memory core_link_format_dest) internal pure returns(bool) {
-        return compare(core_link_format_src, core_link_format_dest);
-    }
-
-    function discoverResource_DRDBC(address drd, string memory core_link_format_request) public returns(string[] memory) {
+    function retreiveAllResources(address drd) public returns(string[] memory) {
         uint devicesLength = registration.devices_count();
         uint resourceLength = 0;
         address[] memory devices = registration.getDrdDevices(drd);
@@ -29,16 +25,24 @@ contract Discovery {
             resources = registration.getDeviceResources(devices[i]);
             resourceLength = resources.length;
             for(uint j=0; j<resourceLength; j++) {
-                if(matchmaking(resources[j].core_link_format, core_link_format_request) && src_index<src_length) {
-                    resource_list[src_index] = resources[j].uri;
-                    src_index++;
-                }
+                resource_list[src_index] = resources[j];
+                src_index++;
             }
         }
         return resource_list;
     }
 
-    function discoverResource_DRDH(address drd, string[] memory core_link_formats) public returns(string[] memory) {
+    function discoverResource_SemChainFull(address drd, string memory request_resource_type) public returns(string[] memory) {
+        if(request_resource_type) {
+            matchmaking.match(address drd, string memory request_resource_type)
+        } else {
+            return retreiveAllResources(drd);
+        }
+    }
+
+
+
+    function discoverResource_SemChainHash(address drd, string[] memory request) public returns(string[] memory) {
         uint devicesLength = registration.devices_count();
         uint resourceLength = 0;
         uint clfLength = core_link_formats.length;
@@ -60,5 +64,4 @@ contract Discovery {
         }
         return resource_list;
     }
-
 }

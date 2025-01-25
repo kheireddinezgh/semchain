@@ -6,12 +6,13 @@ from coapthon.resource_directory.resourceDirectory import ResourceDirectory
 
 def main():
     isDRD = True
-    rd_number = 30
+    rd_number = 5
     initial_port = 5550
     DRD_ports = []
     if(isDRD):
         for i in range(1, rd_number):
             DRD_ports.append(initial_port+i)
+    fuseki_port = "303"+str(int(sys.argv[1][-1]) % 7)
     server = ResourceDirectory("127.0.0.1", int(sys.argv[1]), MONGO_DATABASE, True, isDRD, DRD_ports, fuseki_port)
     try:
         print(sys.argv[1])
